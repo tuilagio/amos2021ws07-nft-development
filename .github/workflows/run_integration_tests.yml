@@ -39,9 +39,14 @@ jobs:
           APPWRITE_PROJECT = $(cat ../setup_appwrite/project-id.txt)
           APPWRITE_API_KEY = $(cat ../setup_appwrite/api-key.txt)
           # Install deps
-          python -m pip install appwrite
+          python3 -m pip install appwrite
+          #
+          python3 --version
+          echo $APPWRITE_ENDPOINT
+          echo $APPWRITE_PROJECT
+          echo $APPWRITE_API_KEY
           # Run the script
-          python createAnnouncementCollection.py 
+          python3 createAnnouncementCollection.py 
       - name: setup frontend
         working-directory: ./frontend
         run: |
