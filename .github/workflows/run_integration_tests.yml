@@ -35,9 +35,9 @@ jobs:
         working-directory: ./backend/database-collection-schemas
         run: |
           # Prepare env variables
-          APPWRITE_ENDPOINT = http://localhost:80/v1
-          APPWRITE_PROJECT = $(cat ../setup_appwrite/project-id.txt)
-          APPWRITE_API_KEY = $(cat ../setup_appwrite/api-key.txt)
+          export APPWRITE_ENDPOINT = http://localhost:80/v1
+          export APPWRITE_PROJECT = $(cat ../setup_appwrite/project-id.txt)
+          export APPWRITE_API_KEY = $(cat ../setup_appwrite/api-key.txt)
           # Install deps
           python3 -m pip install appwrite
           #
