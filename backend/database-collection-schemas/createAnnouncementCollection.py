@@ -3,6 +3,7 @@
 
 import os
 import json
+import argparse
 
 from appwrite.client import Client
 from appwrite.services.database import Database
@@ -12,9 +13,37 @@ export APPWRITE_ENDPOINT=<http://localhost/v1>
 export APPWRITE_PROJECT=<project_id>
 export APPWRITE_API_KEY=<api_key>
 """
-APPWRITE_ENDPOINT = os.environ.get("APPWRITE_ENDPOINT")
-APPWRITE_PROJECT = os.environ.get("APPWRITE_PROJECT")
-APPWRITE_API_KEY = os.environ.get("APPWRITE_API_KEY")
+
+parser = argparse.ArgumentParser(
+    "\n--apikey, --endpoint, --projectid \n"
+)
+
+parser.add_argument(
+    "--apikey",
+    type=str,
+    default=None,
+    help="API key to access appwrite backend, you can instead "
+    "also set the environment variable APPWRITE_API_KEY",
+)
+parser.add_argument(
+    "--endpoint",
+    type=str,
+    default=None,
+    help="URL of the appwrite endpoint, you can instead "
+    "also set the environment variable APPWRITE_ENDPOINT",
+)
+parser.add_argument(
+    "--projectid",
+    type=str,
+    default=None,
+    help="Project ID of the targeted appwrite project, you can instead "
+    "also set the environment variable APPWRITE_PROJECT",
+)
+args = parser.parse_args()
+
+APPWRITE_ENDPOINT = str(args.endpoint) if args.endpoint else os.environ.get("APPWRITE_ENDPOINT")
+APPWRITE_PROJECT = str(args.projectid) if args.projectid else os.environ.get("APPWRITE_PROJECT")
+APPWRITE_API_KEY = str(args.apikey) if args.apikey else os.environ.get("APPWRITE_API_KEY")
 
 
 client = Client()
