@@ -31,22 +31,22 @@ jobs:
           #working-directory: ./backend/setup_appwrite
           #run: |
           #./create-set-wallet-function.sh
-      - name: set environment 
-        run: |
-          echo "export APPWRITE_ENDPOINT=http://localhost:80/v1" > ~/.bashrc
-          echo "export APPWRITE_PROJECT=$(cat ../setup_appwrite/project-id.txt)" > ~/.bashrc
-          echo "export APPWRITE_API_KEY=$(cat ../setup_appwrite/api-key.txt)" > ~/.bashrc
+      # - name: set environment 
+      #   run: |
+      #     echo "export APPWRITE_ENDPOINT=http://localhost:80/v1" > ~/.bashrc
+      #     echo "export APPWRITE_PROJECT=$(cat ../setup_appwrite/project-id.txt)" > ~/.bashrc
+      #     echo "export APPWRITE_API_KEY=$(cat ../setup_appwrite/api-key.txt)" > ~/.bashrc
       - name: run python init script
         working-directory: ./backend/python_init_script
         run: |
-          source ~/.bashrc
+          # source ~/.bashrc
           python3 -m pip install -r requirements.txt
-          python3 main.py template.csv
+          python3 main.py --apikey $(cat ../setup_appwrite/api-key.txt) --endpoint http://localhost:80/v1 --projectid $(cat ../setup_appwrite/project-id.txt) template.csv
       - name: create-announcement-collection
         working-directory: ./backend/database-collection-schemas
         run: |
           # Prepare env variables
-          source ~/.bashrc
+          # source ~/.bashrc
           # export APPWRITE_ENDPOINT = http://localhost:80/v1
           # export APPWRITE_PROJECT = $(cat ../setup_appwrite/project-id.txt)
           # export APPWRITE_API_KEY = $(cat ../setup_appwrite/api-key.txt)
