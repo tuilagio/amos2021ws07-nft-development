@@ -31,6 +31,17 @@ jobs:
           #working-directory: ./backend/setup_appwrite
           #run: |
           #./create-set-wallet-function.sh
+      - name: create-announcement-collection
+        working-directory: .backend/database-collection-schemas
+        run: |
+          # Prepare env variables
+          APPWRITE_ENDPOINT = http://localhost:80/v1
+          APPWRITE_PROJECT = $(cat ../setup_appwrite/project-id.txt)
+          APPWRITE_API_KEY = $(cat ../setup_appwrite/api-key.txt)
+          # Install deps
+          python -m pip install appwrite
+          # Run the script
+          python createAnnouncementCollection.py 
       - name: setup frontend
         working-directory: ./frontend
         run: |
