@@ -31,13 +31,19 @@ jobs:
           #working-directory: ./backend/setup_appwrite
           #run: |
           #./create-set-wallet-function.sh
+      - name: set environment 
+        run: |
+          echo "export APPWRITE_ENDPOINT=http://localhost:80/v1" > ~/.bashrc
+          echo "export APPWRITE_PROJECT=$(cat ../setup_appwrite/project-id.txt)" > ~/.bashrc
+          echo "export APPWRITE_API_KEY=$(cat ../setup_appwrite/api-key.txt)" > ~/.bashrc
       - name: create-announcement-collection
         working-directory: ./backend/database-collection-schemas
         run: |
           # Prepare env variables
-          export APPWRITE_ENDPOINT = http://localhost:80/v1
-          export APPWRITE_PROJECT = $(cat ../setup_appwrite/project-id.txt)
-          export APPWRITE_API_KEY = $(cat ../setup_appwrite/api-key.txt)
+          source ~/.bashrc
+          # export APPWRITE_ENDPOINT = http://localhost:80/v1
+          # export APPWRITE_PROJECT = $(cat ../setup_appwrite/project-id.txt)
+          # export APPWRITE_API_KEY = $(cat ../setup_appwrite/api-key.txt)
           # Install deps
           python3 -m pip install appwrite
           #
