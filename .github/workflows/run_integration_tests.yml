@@ -36,6 +36,11 @@ jobs:
           echo "export APPWRITE_ENDPOINT=http://localhost:80/v1" > ~/.bashrc
           echo "export APPWRITE_PROJECT=$(cat ../setup_appwrite/project-id.txt)" > ~/.bashrc
           echo "export APPWRITE_API_KEY=$(cat ../setup_appwrite/api-key.txt)" > ~/.bashrc
+      - name: run python init script
+        working-directory: ./backend/python_init_script
+        run: |
+          python3 -m pip install -r requirements.txt
+          python3 main.py template.csv
       - name: create-announcement-collection
         working-directory: ./backend/database-collection-schemas
         run: |
